@@ -1,0 +1,26 @@
+{
+  "name": "playtogether_socket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon index.js --delay 1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TEAM-PLAYTOGETHER/PlayTogether_Socket.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "http": "^0.0.1-security",
+    "socket.io": "^4.5.1"
+  },
+  "bugs": {
+    "url": "https://github.com/TEAM-PLAYTOGETHER/PlayTogether_Socket/issues"
+  },
+  "homepage": "https://github.com/TEAM-PLAYTOGETHER/PlayTogether_Socket#readme"
+}
