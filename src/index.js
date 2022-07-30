@@ -35,7 +35,7 @@ io.on("connection", (socket) => {
   const jwt = socket.handshake.headers.authorization;
 
   // 2. 방 번호 확인
-  let roomName;
+  let roomId;
   let audienceId;
 
   socket.on("subscribe", (data) => {
@@ -44,7 +44,7 @@ io.on("connection", (socket) => {
     roomId = roomData.roomId;
     audienceId = roomData.audienceId;
 
-    socket.join(roomName);
+    socket.join(roomId);
     console.log(`${socket.id}님이 ${roomId}에 접속: 대화상대 = ${audienceId}`);
   });
 
@@ -57,7 +57,7 @@ io.on("connection", (socket) => {
       content: messageContent,
     };
 
-    socket.broadcast.to(roomName).emit("newMessage", JSON.stringify(chatData));
+    socket.broadcast.to(roomId).emit("newMessage", JSON.stringify(chatData));
 
     // DB에 메시지 저장
     try {
@@ -73,7 +73,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    socket.leave(roomName);
+    socket.leave(roomId);
     console.log("disconnect 합니다.");
   });
 });
