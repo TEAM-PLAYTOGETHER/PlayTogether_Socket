@@ -23,7 +23,7 @@ const BASE_URL = process.env.BASE_URL;
 // express가 아닌 socket io 객체 내에서 cors 처리
 const io = socketio(server, {
   cors: {
-    origin: "http://localhost:8080",
+    origin: "*",
   },
 });
 
@@ -39,23 +39,20 @@ io.on("connection", (socket) => {
   let audienceId;
 
   socket.on("subscribe", (data) => {
-    const roomData = JSON.parse(data);
-    console.log(roomData);
-    roomId = roomData.roomId;
-    audienceId = roomData.audienceId;
+    roomId = data.roomId;
+    audienceId = data.audienceId;
 
     socket.join(roomId);
     console.log(`${socket.id}님이 ${roomId}에 접속: 대화상대 = ${audienceId}`);
   });
 
-  socket.on("sendMessage", async (data) => {
-    const messageData = JSON.parse(data);
-    const messageContent = messageData.messageContent;
-
+  socket.on("sendMessage", async ({ messageContent }) => {
     const chatData = {
       recvId: audienceId,
       content: messageContent,
     };
+
+    console.log(chatData);
 
     socket.broadcast.to(roomId).emit("newMessage", JSON.stringify(chatData));
 
