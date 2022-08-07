@@ -51,7 +51,7 @@ io.on("connection", (socket) => {
     const parsedData = JSON.parse(data);
     const chatData = {
       recvId: audienceId,
-      content: data.messageContent,
+      content: parsedData.messageContent,
     };
 
     console.log(chatData);
