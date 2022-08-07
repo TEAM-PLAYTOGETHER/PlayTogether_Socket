@@ -39,17 +39,19 @@ io.on("connection", (socket) => {
   let audienceId;
 
   socket.on("subscribe", (data) => {
-    roomId = data.roomId;
-    audienceId = data.audienceId;
+    const parsedData = JSON.parse(data);
+    roomId = parsedData.roomId;
+    audienceId = parsedData.audienceId;
 
     socket.join(roomId);
     console.log(`${socket.id}님이 ${roomId}에 접속: 대화상대 = ${audienceId}`);
   });
 
-  socket.on("sendMessage", async ({ messageContent }) => {
+  socket.on("sendMessage", async (data) => {
+    const parsedData = JSON.parse(data);
     const chatData = {
       recvId: audienceId,
-      content: messageContent,
+      content: data.messageContent,
     };
 
     console.log(chatData);
